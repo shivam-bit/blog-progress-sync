@@ -23,6 +23,7 @@ module.exports = {
 
     // API Defaults
     ROLES: ['user', 'admin'],
+    CONTENT_TYPES: ['paragraph', 'image', 'link', 'pdf', 'video'],
     ADMIN: 'admin',
     LOGGED_IN: 'logged_in',
     USER: 'user',

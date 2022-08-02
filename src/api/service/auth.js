@@ -14,7 +14,7 @@ const { jwtExpirationInterval } = require('../../config/env-vars');
 const generateTokenResponse = (user, accessToken) => {
     const tokenType = 'Bearer';
     const refreshToken = RefreshToken.generate(user);
-    const expiresIn = dayjs().add(jwtExpirationInterval, 'minutes');
+    const expiresIn = dayjs().add(jwtExpirationInterval, 'day');
     return {
         tokenType,
         accessToken,

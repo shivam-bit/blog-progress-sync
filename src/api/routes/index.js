@@ -14,6 +14,10 @@ app.use('/coverage', express.static('docs'));
 
 app.use('/auth', require('./auth'));
 
-// app.use('/users', require('./user'));
+app.use('/blog', require('./blog'));
+
+app.use('/content', require('./content'));
+
+app.use('/progress', require('./progress'));
 
 module.exports = app;

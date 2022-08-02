@@ -79,7 +79,7 @@ UserModel.method({
     },
     token() {
         const payload = {
-            exp: dayjs().add(jwtExpirationInterval, 'minutes').unix(),
+            exp: dayjs().add(jwtExpirationInterval, 'day').unix(),
             iat: dayjs().unix(),
             sub: this._id,
         };

@@ -34,7 +34,7 @@ exports.login = async (req, res, next) => {
 exports.logout = async (req, res, next) => {
     try {
       console.log("🚀 ~ file: auth.js ~ line 35 ~ exports.logout= ~ req", req.headers)
-        // const data = await Login(req.body);
+        // const data = await Logout(req.body);
         // res.status(OK).json({ data, success: 'SUCCESS' });
     } catch (err) {
         next(err);
