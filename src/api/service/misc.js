@@ -1,5 +1,6 @@
 const Content = require('../models/content');
 const Blog = require('../models/blog');
+const Progress = require('../models/progress');
 /**
  * Return Count for content_blocks
  * @private
@@ -35,5 +36,6 @@ const updateBlogIncrementVal = async (blogId) => {
         increment_value: updatedBlog.increment_value,
     };
 };
+
 
 module.exports = { getContentBlockCount, updateBlogIncrementVal };

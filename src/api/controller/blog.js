@@ -31,7 +31,7 @@ exports.create = async (req, res, next) => {
  */
 exports.view = async (req, res, next) => {
     try {
-        const data = await Get(req.params.blogId);
+        const data = await Get(req.params.blogId, req.user._id);
         res.status(CREATED).json({ data, success: 'SUCCESS' });
     } catch (err) {
         next(err);

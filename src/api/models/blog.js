@@ -1,17 +1,7 @@
-const { Schema, model, Types, Decimal128 } = require('mongoose');
-const dayjs = require('dayjs');
+const { Schema, model, Types } = require('mongoose');
 const APIError = require('../../utils/APIError');
-const {
-    ROLES,
-    NO_RECORD_FOUND,
-    NOT_FOUND,
-    BAD_REQUEST,
-    VALIDATION_ERROR,
-    INVALID_CREDENTIALS,
-    UNAUTHORIZED,
-    EMAIL_EXIST,
-} = require('../../utils/constants');
-const contentModel = require('./content');
+const { NO_RECORD_FOUND, NOT_FOUND, VALIDATION_ERROR } = require('../../utils/constants');
+
 /**
  * Blog Schema
  * @private
@@ -58,22 +48,12 @@ BlogModel.virtual('content_blocks', {
     justOne: false,
 });
 
-// BlogModel.pre('save', async function save(next) {
-//     try {
-//         const contentBlocks = await contentModel
-//             .find({
-//                 parent_blog: this._id,
-//             })
-//             .exec();
-//         console.log('🚀 ~ file: blog.js ~ line 73 ~ save ~ contentBlocks', contentBlocks);
-//         if (contentBlocks.length === 0) {
-//             return next();
-//         }
-//         return next();
-//     } catch (err) {
-//         return next(err);
-//     }
-// });
+BlogModel.virtual('progress', {
+    ref: 'progresses',
+    localField: '_id',
+    foreignField: 'blog_id',
+    justOne: false,
+});
 
 /**
  * Blog Model Methods
@@ -99,7 +79,7 @@ BlogModel.statics = {
      * @param {blogId} id - The id of blog.
      * @returns {Promise<blog, APIError>}
      */
-    async get(id) {
+    async get(id, userId) {
         if (!Types.ObjectId.isValid(id)) {
             throw new APIError({
                 message: VALIDATION_ERROR,
@@ -116,6 +96,7 @@ BlogModel.statics = {
         const blog = await this.findById(id)
             .lean()
             .populate('content_blocks', 'content_type value -parent_blog')
+            .populate('progress', 'progress_value time_spent -blog_id -user_id', { user_id: userId })
             .exec();
         if (!blog) throw new APIError({ message: NO_RECORD_FOUND, status: NOT_FOUND });
         return blog;

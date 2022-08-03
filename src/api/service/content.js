@@ -21,8 +21,7 @@ exports.Create = async (contentData) => {
         await updateBlogIncrementVal(blogId);
         return { contentBlock: savedContent };
     } catch (err) {
-        console.log('🚀 ~ file: blog.js ~ line 43 ~ exports.Create= ~ err', err);
-        throw err;
+        return err;
     }
 };
 

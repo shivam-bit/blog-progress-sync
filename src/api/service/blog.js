@@ -20,8 +20,7 @@ exports.Create = async (blogData) => {
         const savedBlog = await blog.save();
         return { blog: savedBlog.transform() };
     } catch (err) {
-        console.log('🚀 ~ file: blog.js ~ line 43 ~ exports.Create= ~ err', err);
-        throw err;
+        return err;
     }
 };
 
@@ -32,7 +31,7 @@ exports.Create = async (blogData) => {
  * @param {ObjectId} id mongoose Object id of blog
  * @returns {Promise<Blog>} blog data
  */
-exports.Get = async (blogId) => Blog.get(blogId);
+exports.Get = async (blogId, userId) => Blog.get(blogId, userId);
 
 /**
  * Return's Blog Object

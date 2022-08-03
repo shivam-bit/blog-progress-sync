@@ -18,7 +18,36 @@ exports.Create = async (progressData) => {
         const savedUserProgress = await userProgress.save();
         return { progress: savedUserProgress };
     } catch (err) {
-        console.log('🚀 ~ file: blog.js ~ line 43 ~ exports.Create= ~ err', err);
-        throw err;
+        return err;
     }
+};
+
+exports.Update = async (progressId, newIncrementValue) => {
+    try {
+        const updatedProgress = await Progress.findByIdAndUpdate(
+            progressId,
+            {
+                $set: { progress_value: newIncrementValue },
+            },
+            { new: true },
+        ).exec();
+        return { updatedProgress };
+    } catch (err) {
+        return err;
+    }
+};
+
+exports.ProgressAlreadyExist = async (blogId, userId) => {
+    const userProgressCount = await Progress.countDocuments({
+        blog_id: blogId,
+        user_id: userId,
+    });
+    return userProgressCount !== 0;
+};
+
+exports.ProgressGettingDecreased = async (progressId, newProgressValue) => {
+    const { progress_value } = await Progress.findById(progressId);
+    console.log('🚀 ~ file: progress.js ~ line 50 ~ exports.ProgressGettingDecreased= ~ userProgress', progress_value);
+    return progress_value > newProgressValue;
+    // return userProgressCount !== 0;
 };

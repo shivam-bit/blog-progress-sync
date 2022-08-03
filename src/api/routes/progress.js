@@ -14,5 +14,6 @@ const { isAuthenticatedUser } = require('../../middleware/auth');
  *
  */
 app.route('/create/:blogId').post(isAuthenticatedUser, controller.create);
+app.route('/update/:progressId').put(isAuthenticatedUser, controller.update);
 
 module.exports = app;

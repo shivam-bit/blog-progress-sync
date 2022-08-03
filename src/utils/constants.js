@@ -35,4 +35,6 @@ module.exports = {
     INVALID_CREDENTIALS: 'Invalid Credentials, Please check and try again',
     EMAIL_EXIST: 'Email is already in use by another account',
     INVALID_FILE_TYPE: 'Invalid file type',
+    PROGRESS_EXIST: 'User progress already exist on this blog',
+    PROGRESS_REDUCED: 'Progress cannot be reduced',
 };
